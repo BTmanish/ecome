@@ -22,6 +22,7 @@ export default function Signup() {
     } catch (error) {
       console.log("Error:", error.response?.data || error.message);
     }
+    
   };
 
   return (
