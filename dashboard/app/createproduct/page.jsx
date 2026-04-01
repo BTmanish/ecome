@@ -9,7 +9,7 @@ export default function CreateProduct() {
     name: "",
     model: "",
     price: "",
-    Description:"",
+    Description: "",
   });
   const [image, setImage] = useState(null); // store actual file
 
@@ -33,11 +33,12 @@ export default function CreateProduct() {
     if (image) data.append("image", image);
 
     try {
-      await axios.post("http://localhost:5000/api/createproduct", data, {
+      const BASE_URL = process.env.NEXT_PUBLIC_API_URL; // <-- live backend URL
+      await axios.post(`${BASE_URL}/api/createproduct`, data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       alert("Product Added Successfully ✅");
-      router.push("/");
+      router.push("/"); // go back to dashboard home
     } catch (error) {
       console.error("Error adding product:", error.response?.data || error.message);
     }
@@ -83,7 +84,7 @@ export default function CreateProduct() {
           className="w-full mb-4 p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400"
         />
 
-         <input
+        <input
           type="text"
           name="Description"
           placeholder="Description"
