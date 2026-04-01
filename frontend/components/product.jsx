@@ -22,10 +22,12 @@ export default function Page({ search, dark }) {
     const fetchProducts = async () => {
       try {
         let res;
+        const BASE_URL = process.env.NEXT_PUBLIC_API_URL; // <-- use Render backend URL
+
         if (!search) {
-          res = await axios.get("http://localhost:5000/api/findproduct");
+          res = await axios.get(`${BASE_URL}/api/findproduct`);
         } else {
-          res = await axios.get(`http://localhost:5000/api/search?q=${search}`);
+          res = await axios.get(`${BASE_URL}/api/search?q=${search}`);
         }
         setProducts(res.data);
         setcurrentpage(0);
@@ -39,10 +41,11 @@ export default function Page({ search, dark }) {
   return (
     <div
       className={`min-h-screen p-10 ${
-        dark? "bg-gray-900": "bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100"
+        dark
+          ? "bg-gray-900"
+          : "bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100"
       }`}
     >
-
       {/* Header */}
       <div className="flex justify-between items-center mb-10">
         <h1
@@ -67,7 +70,7 @@ export default function Page({ search, dark }) {
             >
               {item.image && (
                 <img
-                  src={`http://localhost:5000${item.image}`}
+                  src={`${process.env.NEXT_PUBLIC_API_URL}${item.image}`} // <-- updated image URL
                   alt={item.name}
                   className="w-full h-48 object-cover rounded-2xl mb-4"
                 />
