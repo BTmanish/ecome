@@ -11,6 +11,7 @@ export default function ProductDetail() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
+        const BASE_URL = process.env.NEXT_PUBLIC_API_URL; // <-- use Render backend URL
         const res = await axios.get(`http://localhost:5000/api/product/${id}`);
         setProduct(res.data);
       } catch (error) {
