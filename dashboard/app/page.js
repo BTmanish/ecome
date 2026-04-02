@@ -15,12 +15,17 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
+       const response= await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/login`,
+        data
+       );
+
+      const response1 = await axios.post(
         "http://localhost:5000/api/login",
         formData
       );
 
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("token", response1.data.token);
       router.push("/Home");
     } catch (error) {
       console.error(error.response?.data || error.message);

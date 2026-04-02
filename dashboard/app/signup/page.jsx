@@ -17,6 +17,9 @@ export default function Signup() {
     e.preventDefault(); // ✅ important
 
     try {
+       const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/login`,
+        data);``
       await axios.post("http://localhost:5000/api/signup", formData);
       alert("Account created successfully 🎉");
     } catch (error) {
