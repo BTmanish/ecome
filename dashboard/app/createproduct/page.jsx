@@ -44,7 +44,7 @@ export default function CreateProduct() {
       });
       
       alert("Product Added Successfully ✅");
-      router.push("/"); // go back to dashboard home
+      router.push("/Home"); // go back to dashboard home
     } catch (error) {
       console.error("Error adding product:", error.response?.data || error.message);
       alert(error.response?.data?.message || "Failed to add product. Please try again.");
