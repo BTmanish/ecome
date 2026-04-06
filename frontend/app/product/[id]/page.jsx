@@ -23,32 +23,35 @@ export default function ProductDetail() {
   }, [id]);
 
   if (!product) {
-    return <p className="text-center mt-20">Loading product...</p>;
+    return <p className="text-center mt-10 sm:mt-20 text-base sm:text-lg">Loading product...</p>;
   }
 
   return (
-    <div className="min-h-screen p-10 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100">
-      <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-3xl p-6">
+    <div className="min-h-screen p-4 sm:p-6 md:p-8 lg:p-10 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100">
+      <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8">
         {product.image && (
           <img
             src={`http://localhost:5000${product.image}`}
             alt={product.name}
-            className="w-full h-96 object-cover rounded-2xl mb-6"
+            className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-xl sm:rounded-2xl mb-4 sm:mb-6"
           />
         )}
 
-        <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
-        <p className="text-gray-700 mb-2">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 break-words">
+          {product.name}
+        </h1>
+        
+        <p className="text-gray-700 mb-2 text-sm sm:text-base">
           <span className="font-medium">Model:</span> {product.model}
         </p>
-        <p className="text-gray-700 mb-2">
+        
+        <p className="text-gray-700 mb-2 text-sm sm:text-base">
           <span className="font-medium">Price:</span> ₹ {product.price}
         </p>
-        <p className="text-gray-700 mb-6">
+        
+        <p className="text-gray-700 mb-6 text-sm sm:text-base leading-relaxed">
           <span className="font-medium">Description:</span> {product.Description || "No description"}
         </p>
-
-        
       </div>
     </div>
   );

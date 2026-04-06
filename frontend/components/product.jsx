@@ -22,7 +22,7 @@ export default function Page({ search, dark }) {
     const fetchProducts = async () => {
       try {
         let res;
-        const BASE_URL = process.env.NEXT_PUBLIC_API_URL; // <-- use Render backend URL
+        const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
         if (!search) {
           res = await axios.get(`${BASE_URL}/api/findproduct`);
@@ -40,16 +40,16 @@ export default function Page({ search, dark }) {
 
   return (
     <div
-      className={`min-h-screen p-10 ${
+      className={`min-h-screen p-4 sm:p-6 md:p-8 lg:p-10 ${
         dark
           ? "bg-gray-900"
           : "bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100"
       }`}
     >
       {/* Header */}
-      <div className="flex justify-between items-center mb-10">
+      <div className="flex justify-between items-center mb-6 sm:mb-8 md:mb-10">
         <h1
-          className={`text-4xl font-bold ${
+          className={`text-2xl sm:text-3xl md:text-4xl font-bold ${
             dark
               ? "text-white"
               : "bg-gradient-to-r from-indigo-600 to-pink-600 bg-clip-text text-transparent"
@@ -60,40 +60,40 @@ export default function Page({ search, dark }) {
       </div>
 
       {/* Product Grid */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
         {products.slice(start, end).map((item) => (
           <Link href={`/product/${item._id}`} key={item._id}>
             <div
-              className={`rounded-3xl shadow-xl hover:shadow-2xl hover:-translate-y-2 transition duration-300 p-6 cursor-pointer ${
+              className={`rounded-2xl sm:rounded-3xl shadow-xl hover:shadow-2xl hover:-translate-y-2 transition duration-300 p-4 sm:p-6 cursor-pointer ${
                 dark ? "bg-gray-800 text-white" : "bg-white"
               }`}
             >
               {item.image && (
                 <img
-                  src={`${process.env.NEXT_PUBLIC_API_URL}${item.image}`} // <-- updated image URL
+                  src={`${process.env.NEXT_PUBLIC_API_URL}${item.image}`}
                   alt={item.name}
-                  className="w-full h-48 object-cover rounded-2xl mb-4"
+                  className="w-full h-40 sm:h-48 object-cover rounded-xl sm:rounded-2xl mb-3 sm:mb-4"
                 />
               )}
 
               <h2
-                className={`text-2xl font-semibold mb-3 ${
+                className={`text-xl sm:text-2xl font-semibold mb-2 sm:mb-3 ${
                   dark ? "text-white" : "text-gray-800"
                 }`}
               >
                 {item.name}
               </h2>
 
-              <p className={`${dark ? "text-gray-300" : "text-gray-600"} mb-2`}>
+              <p className={`${dark ? "text-gray-300" : "text-gray-600"} mb-1 sm:mb-2 text-sm sm:text-base`}>
                 <span className="font-medium">Model:</span> {item.model}
               </p>
 
-              <p className={`${dark ? "text-gray-300" : "text-gray-600"} mb-6`}>
+              <p className={`${dark ? "text-gray-300" : "text-gray-600"} mb-4 sm:mb-6 text-sm sm:text-base`}>
                 <span className="font-medium">Price:</span> ₹ {item.price}
               </p>
 
               <div className="flex justify-end">
-                <button className="bg-pink-400 p-2 rounded-xl hover:bg-pink-600 hover:translate-y-1 transition">
+                <button className="bg-pink-400 p-2 px-3 sm:px-4 rounded-xl hover:bg-pink-600 hover:translate-y-1 transition text-sm sm:text-base">
                   Read more
                 </button>
               </div>
@@ -104,15 +104,15 @@ export default function Page({ search, dark }) {
 
       {/* No Products */}
       {products.length === 0 && (
-        <p className={`text-center text-xl mt-10 ${dark ? "text-gray-300" : "text-gray-600"}`}>
+        <p className={`text-center text-lg sm:text-xl mt-8 sm:mt-10 ${dark ? "text-gray-300" : "text-gray-600"}`}>
           No products found 😢
         </p>
       )}
 
       {/* Pagination */}
-      <div className="flex justify-center items-center mt-6">
+      <div className="flex justify-center items-center mt-6 sm:mt-8 md:mt-10 overflow-x-auto px-2">
         <div
-          className={`flex gap-2 p-3 rounded-2xl shadow-xl ${
+          className={`flex gap-1 sm:gap-2 p-2 sm:p-3 rounded-xl sm:rounded-2xl shadow-xl ${
             dark ? "bg-gray-700" : "bg-pink-300"
           }`}
         >
@@ -120,7 +120,7 @@ export default function Page({ search, dark }) {
             <button
               key={n}
               onClick={() => handelchange(n)}
-              className={`w-8 h-8 rounded-full ${
+              className={`w-7 h-7 sm:w-8 sm:h-8 text-sm sm:text-base rounded-full ${
                 currentpage === n
                   ? "bg-pink-600 text-white"
                   : dark
