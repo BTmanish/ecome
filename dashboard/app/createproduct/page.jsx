@@ -12,6 +12,7 @@ export default function CreateProduct() {
     Description: "",
   });
   const [image, setImage] = useState(null); // store actual file
+  const [loading, setLoading] = useState(false); // add loading state
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,6 +24,7 @@ export default function CreateProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     // create FormData to send file + other fields
     const data = new FormData();
@@ -33,14 +35,21 @@ export default function CreateProduct() {
     if (image) data.append("image", image);
 
     try {
-      const BASE_URL = process.env.NEXT_PUBLIC_API_URL; // <-- live backend URL
+      const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+      // BASE_URL should be: https://ecome-5-8lhk.onrender.com (no /api at the end)
+      console.log("Adding product to:", `${BASE_URL}/api/createproduct`);
+      
       await axios.post(`${BASE_URL}/api/createproduct`, data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      
       alert("Product Added Successfully ✅");
       router.push("/"); // go back to dashboard home
     } catch (error) {
       console.error("Error adding product:", error.response?.data || error.message);
+      alert(error.response?.data?.message || "Failed to add product. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -50,7 +59,7 @@ export default function CreateProduct() {
         onSubmit={handleSubmit}
         className="bg-white p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-md mx-4 sm:mx-auto"
       >
-        <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center text-indigo-600">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center bg-gradient-to-r from-indigo-600 to-pink-600 bg-clip-text text-transparent">
           Add New Product
         </h2>
 
@@ -61,7 +70,8 @@ export default function CreateProduct() {
           value={formData.name}
           onChange={handleChange}
           required
-          className="w-full mb-3 sm:mb-4 p-2.5 sm:p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base"
+          disabled={loading}
+          className="w-full mb-3 sm:mb-4 p-2.5 sm:p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base disabled:opacity-50"
         />
 
         <input
@@ -71,7 +81,8 @@ export default function CreateProduct() {
           value={formData.model}
           onChange={handleChange}
           required
-          className="w-full mb-3 sm:mb-4 p-2.5 sm:p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base"
+          disabled={loading}
+          className="w-full mb-3 sm:mb-4 p-2.5 sm:p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base disabled:opacity-50"
         />
 
         <input
@@ -81,7 +92,8 @@ export default function CreateProduct() {
           value={formData.price}
           onChange={handleChange}
           required
-          className="w-full mb-3 sm:mb-4 p-2.5 sm:p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base"
+          disabled={loading}
+          className="w-full mb-3 sm:mb-4 p-2.5 sm:p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base disabled:opacity-50"
         />
 
         <input
@@ -91,14 +103,16 @@ export default function CreateProduct() {
           value={formData.Description}
           onChange={handleChange}
           required
-          className="w-full mb-3 sm:mb-4 p-2.5 sm:p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base"
+          disabled={loading}
+          className="w-full mb-3 sm:mb-4 p-2.5 sm:p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base disabled:opacity-50"
         />
 
         <input
           type="file"
           accept="image/*"
           onChange={handleImage}
-          className="w-full mb-4 sm:mb-6 p-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base"
+          disabled={loading}
+          className="w-full mb-4 sm:mb-6 p-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base disabled:opacity-50"
         />
 
         {image && (
@@ -111,9 +125,10 @@ export default function CreateProduct() {
 
         <button
           type="submit"
-          className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-indigo-500 to-pink-500 text-white rounded-xl shadow-lg hover:scale-105 transition text-sm sm:text-base"
+          disabled={loading}
+          className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-indigo-500 to-pink-500 text-white rounded-xl shadow-lg hover:scale-105 transition text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Add Product
+          {loading ? "Adding Product..." : "Add Product"}
         </button>
       </form>
     </div>
