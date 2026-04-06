@@ -45,12 +45,12 @@ export default function CreateProduct() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 p-4 sm:p-6 md:p-8 lg:p-10">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md"
+        className="bg-white p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-md mx-4 sm:mx-auto"
       >
-        <h2 className="text-3xl font-bold mb-6 text-center text-indigo-600">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center text-indigo-600">
           Add New Product
         </h2>
 
@@ -61,7 +61,7 @@ export default function CreateProduct() {
           value={formData.name}
           onChange={handleChange}
           required
-          className="w-full mb-4 p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-full mb-3 sm:mb-4 p-2.5 sm:p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base"
         />
 
         <input
@@ -71,7 +71,7 @@ export default function CreateProduct() {
           value={formData.model}
           onChange={handleChange}
           required
-          className="w-full mb-4 p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-full mb-3 sm:mb-4 p-2.5 sm:p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base"
         />
 
         <input
@@ -81,7 +81,7 @@ export default function CreateProduct() {
           value={formData.price}
           onChange={handleChange}
           required
-          className="w-full mb-4 p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-full mb-3 sm:mb-4 p-2.5 sm:p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base"
         />
 
         <input
@@ -91,27 +91,27 @@ export default function CreateProduct() {
           value={formData.Description}
           onChange={handleChange}
           required
-          className="w-full mb-4 p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-full mb-3 sm:mb-4 p-2.5 sm:p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base"
         />
 
         <input
           type="file"
           accept="image/*"
           onChange={handleImage}
-          className="w-full mb-6 p-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-full mb-4 sm:mb-6 p-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm sm:text-base"
         />
 
         {image && (
           <img
             src={URL.createObjectURL(image)} // preview uploaded file
             alt="Preview"
-            className="w-full h-48 object-cover rounded-xl mb-4"
+            className="w-full h-40 sm:h-48 object-cover rounded-xl mb-3 sm:mb-4"
           />
         )}
 
         <button
           type="submit"
-          className="w-full py-3 bg-gradient-to-r from-indigo-500 to-pink-500 text-white rounded-xl shadow-lg hover:scale-105 transition"
+          className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-indigo-500 to-pink-500 text-white rounded-xl shadow-lg hover:scale-105 transition text-sm sm:text-base"
         >
           Add Product
         </button>

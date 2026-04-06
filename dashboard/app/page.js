@@ -15,17 +15,12 @@ export default function Login() {
     e.preventDefault();
 
     try {
-       const response= await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/login`,
-        data
-       );
-
-      const response1 = await axios.post(
-        "http://localhost:5000/api/login",
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/login`,
         formData
       );
 
-      localStorage.setItem("token", response1.data.token);
+      localStorage.setItem("token", response.data.token);
       router.push("/Home");
     } catch (error) {
       console.error(error.response?.data || error.message);
@@ -34,18 +29,15 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center p-6">
-
-      <div className="bg-white rounded-3xl shadow-2xl p-10 max-w-md w-full">
-
-        <h2 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-indigo-600 to-pink-600 bg-clip-text text-transparent">
+    <div className="min-h-screen bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center p-4 sm:p-6 md:p-8">
+      <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 md:p-10 max-w-md w-full mx-4 sm:mx-auto">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-8 bg-gradient-to-r from-indigo-600 to-pink-600 bg-clip-text text-transparent">
           Welcome Back
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
           <div>
-            <label className="block text-gray-700 font-medium mb-2">
+            <label className="block text-gray-700 font-medium mb-1.5 sm:mb-2 text-sm sm:text-base">
               Email Address
             </label>
             <input
@@ -54,13 +46,13 @@ export default function Login() {
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter your email"
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-sm sm:text-base"
               required
             />
           </div>
 
           <div>
-            <label className="block text-gray-700 font-medium mb-2">
+            <label className="block text-gray-700 font-medium mb-1.5 sm:mb-2 text-sm sm:text-base">
               Password
             </label>
             <input
@@ -69,31 +61,19 @@ export default function Login() {
               value={formData.password}
               onChange={handleChange}
               placeholder="Enter your password"
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-sm sm:text-base"
               required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold rounded-full shadow-lg hover:scale-105 transition duration-300"
+            className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold rounded-full shadow-lg hover:scale-105 transition duration-300 text-sm sm:text-base"
           >
             Login
           </button>
-
         </form>
-
-        <p className="text-center text-gray-500 mt-6">
-          Don't have an account?{" "}
-          <a
-            href="/signup"
-            className="text-purple-600 font-semibold hover:underline"
-          >
-            Sign Up
-          </a>
-        </p>
-
       </div>
     </div>
   );
-};
+}

@@ -4,7 +4,6 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import Navbar from "@/componets/Navbar";
 
-
 export default function Home() {
     const router = useRouter();
     const [products, setProducts] = useState([]);
@@ -12,7 +11,8 @@ export default function Home() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/findproduct");
+                const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+                const res = await axios.get(`${BASE_URL}/api/findproduct`);
                 setProducts(res.data);
             } catch (error) {
                 console.error(
@@ -38,7 +38,8 @@ export default function Home() {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/deleteproduct/${id}`);
+            const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+            await axios.delete(`${BASE_URL}/api/deleteproduct/${id}`);
             setProducts(products.filter((p) => p._id !== id));
         } catch (error) {
             console.error(
@@ -49,59 +50,67 @@ export default function Home() {
     };
 
     return (
-        <div className="   ">
-              <div className="rounded-2xl">
-           < Navbar/>
-              </div>
+        <div className="min-h-screen bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100">
+            <div className="rounded-2xl">
+                <Navbar />
+            </div>
+            
             {/* Header */}
-            <div className="flex justify-between items-center mb-10 m-2">
-                <h1 className="text-4xl font-bold">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mb-6 sm:mb-8 md:mb-10 m-2 sm:m-3 md:m-4">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-pink-600 bg-clip-text text-transparent text-center sm:text-left">
                     Product List
                 </h1>
 
                 <button
                     onClick={handleAdd}
-                    className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-pink-500 text-white rounded-full shadow-lg hover:scale-105 transition duration-300"
+                    className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-indigo-500 to-pink-500 text-white rounded-full shadow-lg hover:scale-105 transition duration-300 text-sm sm:text-base"
                 >
                     + Add Product
                 </button>
             </div>
 
-            {/* Products */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Products Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 p-4 sm:p-6 md:p-8">
                 {products.map((item, index) => (
                     <div
                         key={item._id || index}
-                        className={`rounded-3xl shadow-xl p-6 transition duration-300  "bg-gray-800" : "bg-white"
-                            }`}
+                        className="rounded-2xl sm:rounded-3xl shadow-xl hover:shadow-2xl hover:-translate-y-2 transition duration-300 p-4 sm:p-6 bg-white"
                     >
                         {item.image && (
                             <img
-                                src={`http://localhost:5000${item.image}`}
-                                alt={item.image}
-                                className="w-full h-48 object-cover rounded-2xl mb-4"
+                                src={`${process.env.NEXT_PUBLIC_API_URL}${item.image}`}
+                                alt={item.name}
+                                className="w-full h-40 sm:h-48 object-cover rounded-xl sm:rounded-2xl mb-3 sm:mb-4"
                             />
                         )}
 
-                        <h2 className="text-2xl font-semibold mb-3">
+                        <h2 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-3 text-gray-800 break-words">
                             {item.name}
                         </h2>
 
-                        <p className="mb-2">Model: {item.model}</p>
-                        <p className="mb-6">Price: ₹ {item.price}</p>
-                        <p className="mb-6">Description:  {item.Description}</p>
+                        <p className="mb-1 sm:mb-2 text-gray-600 text-sm sm:text-base">
+                            <span className="font-medium">Model:</span> {item.model}
+                        </p>
+                        
+                        <p className="mb-3 sm:mb-4 text-gray-600 text-sm sm:text-base">
+                            <span className="font-medium">Price:</span> ₹ {item.price}
+                        </p>
+                        
+                        <p className="mb-4 sm:mb-6 text-gray-600 text-sm sm:text-base break-words">
+                            <span className="font-medium">Description:</span> {item.Description}
+                        </p>
 
-                        <div className="flex gap-4">
+                        <div className="flex gap-3 sm:gap-4">
                             <button
                                 onClick={() => handleEdit(index)}
-                                className="flex-1 py-2 bg-blue-500 text-white rounded-xl"
+                                className="flex-1 py-2 sm:py-2.5 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition text-sm sm:text-base"
                             >
                                 Edit
                             </button>
 
                             <button
                                 onClick={() => handleDelete(item._id)}
-                                className="flex-1 py-2 bg-red-500 text-white rounded-xl"
+                                className="flex-1 py-2 sm:py-2.5 bg-red-500 text-white rounded-xl hover:bg-red-600 transition text-sm sm:text-base"
                             >
                                 Delete
                             </button>
@@ -109,6 +118,15 @@ export default function Home() {
                     </div>
                 ))}
             </div>
+
+            {/* No Products Message */}
+            {products.length === 0 && (
+                <div className="text-center py-10 sm:py-20">
+                    <p className="text-gray-600 text-base sm:text-lg">
+                        No products found. Click "Add Product" to create one!
+                    </p>
+                </div>
+            )}
         </div>
     );
 }
