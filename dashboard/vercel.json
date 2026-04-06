@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://ecome-5-8lhk.onrender.com/api/$1"
+    }
+  ]
+}
