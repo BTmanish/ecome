@@ -7,7 +7,7 @@ import React, { useState } from 'react'
 
 const Page = () => {
   const [search, setSearch] = useState("");
-  const [dark, setDark] = useState(false); // 🌙 dark mode state
+  const [dark, setDark] = useState(true); // 🌙 dark mode state
 
   return (
     <div className={dark ? "dark bg-black text-white" : "bg-white text-black"}>
