@@ -62,7 +62,7 @@ const Navbar = ({ onSearch, dark, setDark }) => {
         {/* Left Section - Desktop */}
         <div className={`${isMenuOpen ? "block" : "hidden"} lg:block w-full lg:w-auto`}>
           <ul className="flex flex-col lg:flex-row gap-3 lg:gap-6 text-base lg:text-lg font-semibold items-center lg:items-center">
-            <Link href="/home" className="hover:bg-white hover:text-purple-600 px-3 lg:px-4 py-2 rounded-xl transition w-full lg:w-auto text-center">
+            <Link href="/" className="hover:bg-white hover:text-purple-600 px-3 lg:px-4 py-2 rounded-xl transition w-full lg:w-auto text-center">
               Home
             </Link>
 
